@@ -1,0 +1,448 @@
+% mnras_template.tex 
+%
+% LaTeX template for creating an MNRAS paper
+%
+% v3.3 released April 2024
+% (version numbers match those of mnras.cls)
+%
+% Copyright (C) Royal Astronomical Society 2015
+% Authors:
+% Keith T. Smith (Royal Astronomical Society)
+
+% Change log
+%
+% v3.3 April 2024
+%   Updated \pubyear to print the current year automatically
+% v3.2 July 2023
+%	Updated guidance on use of amssymb package
+% v3.0 May 2015
+%    Renamed to match the new package name
+%    Version number matches mnras.cls
+%    A few minor tweaks to wording
+% v1.0 September 2013
+%    Beta testing only - never publicly released
+%    First version: a simple (ish) template for creating an MNRAS paper
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Basic setup. Most papers should leave these options alone.
+\documentclass[fleqn,usenatbib]{mnras}
+
+% MNRAS is set in Times font. If you don't have this installed (most LaTeX
+% installations will be fine) or prefer the old Computer Modern fonts, comment
+% out the following line
+\usepackage{newtxtext,newtxmath}
+\usepackage{tabularx}
+\usepackage{tikz}
+% \usepackage{enumerate}
+% \renewcommand{\labelenumii}
+\usepackage{booktabs, caption, makecell}
+\usepackage{subcaption}
+\usepackage{multirow}
+\usepackage[integrals]{wasysym} %
+
+
+% \usepackage{enumitem}
+
+% Depending on your LaTeX fonts installation, you might get better results with one of these:
+%\usepackage{mathptmx}
+%\usepackage{txfonts}
+
+% Use vector fonts, so it zooms properly in on-screen viewing software
+% Don't change these lines unless you know what you are doing
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}	% Advanced maths commands
+
+% Allow "Thomas van Noord" and "Simon de Laguarde" and alike to be sorted by "N" and "L" etc. in the bibliography.
+% Write the name in the bibliography as "\VAN{Noord}{Van}{van} Noord, Thomas"
+\DeclareRobustCommand{\VAN}[3]{#2}
+\let\VANthebibliography\thebibliography
+\def\thebibliography{\DeclareRobustCommand{\VAN}[3]{##3}\VANthebibliography}
+
+
+%%%%% AUTHORS - PLACE YOUR OWN PACKAGES HERE %%%%%
+
+% Only include extra packages if you really need them. Avoid using amssymb if newtxmath is enabled, as these packages can cause conflicts. newtxmatch covers the same math symbols while producing a consistent Times New Roman font. Common packages are:
+\usepackage{graphicx}	% Including figure files
+\usepackage{amsmath}	% Advanced maths commands
+\usepackage{tikz}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%% AUTHORS - PLACE YOUR OWN COMMANDS HERE %%%%%
+
+% Please keep new commands to a minimum, and use \newcommand not \def to avoid
+% overwriting existing commands. Example:
+%\newcommand{\pcm}{\,cm$^{-2}$}	% per cm-squared
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%% TITLE PAGE %%%%%%%%%%%%%%%%%%%
+
+% Title of the paper, and the short title which is used in the headers.
+% Keep the title short and informative.
+\title[Radio Activity from 2MASS 2228-4310]{Radio Activity from the Rapidly Rotating T dwarf 2MASS 2228-4310}
+% \title[Magnetosphere-Ionosphere Coupling Currents]{A Confirmation of Magnetosphere-Ionosphere Coupling Currents as the Origin of Aurorae in Brown Dwarfs }
+
+
+% The list of authors, and the short list which is used in the headers.
+% If you need two or more lines of authors, add an extra line using \newauthor
+\author[Kelvin Wandia et al.]{Kelvin Wandia,$^{1}$\thanks{E-mail: kelvin.wandia@manchester.ac.uk}
+Michael A. Garrett,$^{1,2}$
+Aaron Golden, $^{3}$
+Gregg Hallinan, $^{4}$
+David Williams-Baldwin,$^{1}$
+\newauthor
+Geferson Lucatelli, $^{1}$
+Robert J. Beswick,$^{1}$
+Jack F. Radcliffe,$^{1,5}$
+Andrew Siemion,$^{1,6,7,8,9,10,11}$ 
+\newauthor
+Talon Myburgh $^{12}$
+\\
+% List of institutions
+$^{1}$Jodrell Bank Centre for Astrophysics (JBCA), Department of Physics \& Astronomy, Alan Turing Building, The University of Manchester, M13 9PL, UK\\
+$^{2}$Leiden Observatory, Leiden University, PO Box 9513, 2300 RA Leiden, The Netherlands\\
+$^{3}$Physics, School of Natural Sciences \& Center for Astronomy, College of Science and Engineering, University of Galway, University \\
+Road, Galway, H91 TK33, Ireland \\
+$^{4}$Division of Physics, Mathematics, and Astronomy, California Institute of Technology, Pasadena, CA 91125, USA \\
+$^{5}$Department of Physics, University of Pretoria, Lynnwood Road, Hatfield, Pretoria, 0083, South Africa \\
+$^{6}$SETI Institute, 339 Bernardo Ave, Suite 200, Mountain View, CA 94043, USA\\
+$^{7}$Berkeley SETI Research Center, University of California, Berkeley, CA 94720, USA \\
+$^{8}$Breakthrough Listen, Astrophysics, Department of Physics, The University of Oxford, Keble Road, Oxford, OX1 3RH, UK \\
+$^{9}$Astrophysics, Department of Physics, University of Oxford, Keble Road, Oxford, OX1 3RH, UK \\
+$^{10}$Berkeley SETI Research Center, University of California, Berkeley, CA 94720, USA \\
+$^{11}$University of Malta, Institute of Space Sciences and Astronomy, Msida, MSD2080, Malta \\
+$^{12}$ Centre for Radio Astronomy Techniques and Technologies, Department of Physics and Electronics, Rhodes University, Makhanda, 6140, 
+South Africa
+}
+
+
+
+% These dates will be filled out by the publisher
+\date{Accepted XXX. Received YYY; in original form ZZZ}
+
+% Prints the current year, for the copyright statements etc. To achieve a fixed year, replace the expression with a number. 
+\pubyear{\the\year{}}
+
+% Don't change these lines
+\begin{document}
+\label{firstpage}
+\pagerange{\pageref{firstpage}--\pageref{lastpage}}
+\maketitle
+
+% Abstract of the paper
+\begin{abstract}
+We present the detection of 2MASS J22282889-4310262 (2M2228), a T6/T6.5 brown dwarf, using the Karl G. Jansky Very Large Array (VLA) archive data observed at C band (4\mbox{--}8 GHz) over two observing epochs ($2\times96$ minutes). 2M2228 is detected at time and frequency averaged Stokes I and V peak flux densities of $\sim67.3\ \mu\ \rm{Jy beam}^{-1}$ and $\sim14.4\ \mu\text{Jy beam}^{-1}$ in the first epoch and $\sim107.2\ \mu\rm{Jy\ beam}^{-1}$ and $\sim-20.7\ \mu\text{Jy beam}^{-1}$ in the second epoch.
+This discovery constitutes the eighth and, notably, the most rapidly rotating T dwarf detected to date at radio wavelengths. Our observations reveal highly polarised bursts at fractional polarisation ratios $f_\text{c}>50$\%. Using Stokes I light curves we measure occurrence intervals of $\sim47$ and $\sim58$ minutes in the two observing epochs respectively with the first burst aligning within a half period timescale of the the previously measured mid infrared photometric period of $85.8\pm0.32$ minutes.  We attribute the emission to the electron cyclotron maser emission (ECME) and constrain the magnetic field strength to $B\gtrsim1.4$ kG. We propose the radio emission arises from the auroral regions and constrain the spatial size of the emitting region to $<12\%$ of the Jovian radius, $\mathrm{R}_\text{J}$. We estimate the emission is beamed over a hollow cone of angular thickness $<7.3\degr$. Assuming an oblique rotator model, we argue that 2M2228 is observed edge on. We emphasise that the period and geometry inferred are provisional considering the short observing durations.
+
+\end{abstract}
+
+% Select between one and six entries from the list of approved keywords.
+% Don't make up new ones.
+\begin{keywords}
+stars: brown dwarfs --stars: magnetic field -- radio continuum: stars
+\end{keywords}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%% BODY OF PAPER %%%%%%%%%%%%%%%%%%
+
+\section{Introduction}
+
+
+After the first undisputed discovery of Gliese 229B, a brown dwarf of spectral type T \citep[][]{Nakajima1995,Rebolo1995}, the catalogue of brown dwarfs was substantially enhanced using the 2-Micron All-Sky Survey \citep[2MASS; ][]{Skrutskie2006,Kirkpatrick1999,Kirkpatrick2000} largely due to improvement in infrared telescopic equipment. This development prompted the definition of new classes of substellar objects denoted L and T dwarfs at effective temperatures ranging between  $T_\text{eff}\sim2500$--$1300$~K for L dwarfs and $T_\text{eff}\sim1500$--$750$~K  for T dwarfs \citep[][]{Kirkpatrick_2005_L_T_dwarfs}. Following the launch of the Wide-field Infrared Survey Explorer (WISE) telescope in 2009 and a subsequent full sky survey \citep[][]{Wright2010} a new class of substellar objects at $T_\text{eff}\lesssim500$ K \citep[][]{Cushing2011} were detected and classified as Y dwarfs.  Brown dwarfs are intermediate objects between planets and stars. Although no clear distinction exists, a common rule of thumb for separating planets from brown dwarfs is based on the mass required to fuse deuterium with objects $\gtrsim13$ times the Jovian mass, $M_\text{J}$ classified as brown dwarfs. The situation becomes more nuanced with the discovery of brown dwarfs with masses below $13\,M_\text{J}$, the so called planetary mass brown dwarfs e.g. the free floating brown dwarf in the star-forming cluster IC 348 at $3$--$4\ M_\text{J}$  \citep[][]{Luhman2024}. A new spectral class ``H'' has now been proposed to account for such brown dwarfs \citep[][]{Luhman2025}. Conversely, brown dwarfs are separated from stars based on the mass limit of $\sim0.075~\mathrm{M}_{\odot}\ (78.5\ \mathrm{M}_\text{J})$  required to ignite and sustain hydrogen fusion \citep[][]{Chabrier2023}. While all T and Y dwarfs are brown dwarfs, some early type L dwarfs are very low mass stars and some late type main sequence stars of spectral type M are brown dwarfs. We note the presence of Lithium is used as a discriminator between young brown dwarfs and low mass stars since the cores of brown dwarfs do not reach the ignition temperatures of Lithium \citep[][]{Rebolo1996,Basri1996}. The Brown dwarfs together with low-mass stars of spectral type later that $\sim$\,M7V $(T_\text{eff}\lesssim2700\ \text{K})$ are collectively known as ultra cool dwarfs \citep[UCDs; ][]{Cushing2006} and are expected to be fully convective.
+
+
+
+
+Due to their convective interiors, UCDs are capable of powering strong magnetic fields attributed to an $\alpha^2$ type dynamo process \cite{Chabrier2006,Dobler2006,Browning2008}
+at work in the interior of these objects. Although a correlation between activity and rotation is observed in early-type UCDs, activity has been claimed to be independent of rotation in later-type UCDs of spectral type $>$L5 \citep[e.g.][]{Schmidt2015}. As one progresses across the UCD class to later spectral types, the objects become cooler and develop atmospheres capable of forming and sustaining complex molecules. Observations of their atmospheres in the mid infrared show photometric variabilities modulated by the rotation period caused by atmospheric heterogeneities and indicate complex weather patterns \cite[e.g.][]{Metchev_2015_II,Buenzli2012,Yang2016}.
+
+
+One of the mechanisms through which UCDs generate radio emission is through the electron cyclotron maser emission \citep[ECME; ][]{Wu1979, Dulk1985, Melrose1982, Callingham2024}. ECME is a coherent emission mechanism arising from interactions between a magnetised plasma and non-thermal anisotropic electrons in a horseshoe or a loss cone distribution \citep[see][]{Melrose2017}. The phenomenology of radio emission from this mechanism comprises of brightness temperatures in excess of the limit of $\sim10^{12}$ K as it does not suffer from inverse Compton scattering losses 
+\citep[see][]{Kellerman1969}, highly circularly polarised emission observed in both helicities suggesting contribution from magnetic distinct regions and or changing magnetic field orientations with respect to the viewing angle \citep[][]{Williams2018}. The radio emission is also often rotationally modulated, reflecting the periodic visibility of the emitting regions and accompanied by steady quiescent emission resulting from gyro-synchrotron \citep[e.g.][]{Hughes2021} and synchrotron mechanisms \citep[e.g.][]{Climent2023,Kao2023}. The mechanism driving coherent radio emission in UCDs is believed to be analogous to that of the Jovian system involving large scale magnetospheric currents \citep[see][]{Hallinan2015} caused by co-rotation breakdown primarily due to mass loading either from orbiting planets/moons or the interstellar medium \citep[][]{Nichols2012}. \citet[][]{Hallinan2015} have also proposed that magnetospheric currents are likely to contribute to observed photometric variability that traces weather in brown dwarfs. 
+
+
+Although radio activity is now beginning to be characterised in UCDs, the first detection of a brown dwarf at radio wavelengths by \citet[][]{Berger2001} challenged standard theories of dynamo processes, activity, and temperature relationships. According to the temperature activity relationship, a hot chromosphere at a temperature of $\sim10^{4}$ K and the coronal at a temperature of $\sim10^{7}$ K emit H$\alpha$ and soft X-rays, respectively. The two act as tracers of magnetic activity. As such, the detection of strong magnetic fields in brown dwarfs, which do not appear to have a classic chromosphere and corona, came as a surprise. In addition, this detection violated the empirically derived Gudel-Benz relationship, which relates the X-ray fluxes from the corona to the 5 GHz radio emission \citep[][]{GudelBenz1993}. Subsequent detections of UCDs have been made at radio wavelengths \citep[e.g.][]{Berger2002,Berger2006,Berger2009,Burgasser2005,Burgasser2013,Hallinan2007,Hallinan2008,Hallinan2015,Mclean2011,McLean2012,Gizis2013,Gizis2016,Lynch2016, Vendatham2020b,Rose2023} and have expanded our understanding of magnetic/radio activity in low-mass stars and substellar objects. 
+
+The coolest brown dwarfs detected at radio wavelengths are of spectral type T with seven confirmed detections.  They include the T6/T6.5  WISEP J112254.73+255021.5 \citep[][]{Route2016,Williams2017}, T6/T6.5.5 2MASS 10475385+2124234 \citep[][]{Route2012,Williams2013,Williams2015}, T2.5 SIMP J01365663+0933473 and T6/T6.5.5 2MASS J12373919+6526148 \citep[][]{Kao2016,Kao2018}, T6/T6.5 BDR J1750+3809 \citep[][]{Vendatham2020}, T7.0+T5.5 binary WISEP J101905.63+652954.2 \citep[][]{Vendatham2023} and the T8 WISE J062309.94$-$045624.6 \citep[][]{Rose2023}. These detections reveal that
+ultra-cool, low mass objects can sustain strong magnetic fields and auroral processes and bridge the gap between stellar and planetary magnetism.  Radio emission from Y dwarfs is yet to be detected, although constraints have been placed \citep[see][]{Kao2019}. We note the ultimate goal is the detection of magnetic fields from exoplanets, a goal that may be achieved with the upgraded Low Frequency Array (LOFAR 2.0) and the low frequency component of the Square Kilometre Array (SKA-low).
+
+
+In response to the paucity of T dwarfs detected at radio wavelengths, we conducted a search of archival National Science Foundation Karl G. Jansky Very Large Array (VLA) data sets for observations targeting T-type brown dwarfs. We discovered unpublished (to the best of our knowledge) observations of the T6/T6.5 brown dwarf 2MASS J22282889-4310262. These observations aimed to extend the sample of the coldest brown dwarfs detected at radio wavelengths. In this manuscript, we describe the targets in Section 2, in Section 3 we outline the methodology used for the data analysis, in Section 4 we present our results and discussion, and finally, we summarise our findings in Section 5.
+
+
+% \section{Target}
+
+\section{2MASS J22282889-4310262}
+
+The brown dwarf 2MASS J22282889-4310262 (hereinafter 2M2228) was first reported by \cite{Burgasser2003} and assigned the spectral class T6.5 but further re-classified as a T6 \citep[][]{Burgasser2006}. We note that both spectral types have been cited in the literature, depending on the reference used. 2M2228  exhibits photometric variability attributed to the dynamics of inhomogeneous atmospheric clouds \citep[see][]{Apai2013} and is rapidly rotating at a photometric period of $1.43\pm0.16$ \citep[][]{Clarke2008}. The rotation period makes it the second most rapidly rotating known UCD of spectral type T after J03480772$-$6022270 at a rotation period of $\sim1.1$ hours. 2M2228 is also the fourth most rapidly rotating brown dwarf to date \citep[see][]{Tannock2021}. The atmosphere of the brown dwarf has been characterised using the Hubble Space Telescope Wide Field Camera 3 (WFC3) at $(1.1$--$1.7\ \mu\text{m})$ and the Spitzer/Infrared Array Camera (IRAC) at $4.5\ \mu\text{m}$ by  \cite{Buenzli2012}.  2M2228 exhibits a peak-to-peak photometric variability of $15.4\pm1.4$ milli-magnitude (mmag) in the J-band $(1.0$--$1.25\ \mu\text{m})$ \citep[][]{Clarke2008}. Follow-up observations by \cite{Yang2016} measured a J band value of $15.662\pm0.073$ mmag over four years, highlighting the stability of the photometric variability and in extension of the atmosphere. 2M2228 is at a distance of $\sim10.64\pm0.79$ pc \citep[][]{Faherty2012}.
+
+
+\begin{table}
+  \centering
+    \renewcommand{\arraystretch}{1.2}
+    \begin{tabular}{ccc} \\
+		\hline
+		 Property &  Value  & Reference   \\
+         \hline
+         Spectral type & T6/T6.5  & $1$ \\
+         Distance (pc) & $ 10.64\pm0.79$ &  $2$ \\
+         $T_\text{eff}$ (K) & 900 & $3$ \\
+         % $\text{log}\ g$ & $4.5-5.0$ & $3$ \\
+         J-band amplitude (mmag) & $15.4\pm1.4$ & $4$ \\
+         Period (hrs) & $1.43\pm0.16$ & $4$ \\
+         % Mass $(M_\text{J})$ & & & $\sim10-12$ & 8  \\
+         Radius $(R_\text{J})$ & $0.94\pm0.16$ & $5$  \\
+         Age (Myr) & 1000 & $5$ \\ 
+         % Position (ra \& dec) & & \\
+         \hline
+	\end{tabular}
+    \caption{Physical parameters References:$^1$\protect\cite{Burgasser2003,Burgasser2006}, $^2$\protect\cite{Faherty2012}, $^3$\protect\cite{Buenzli2012}, $^4$\protect\cite{Clarke2008}, $^5$\protect\cite{Vos2020},
+    }
+    \label{table:physical_params}
+\end{table}
+
+
+\section{Methods}
+
+\subsection{Observations}
+
+We have used archive observations (project code 15A-045, PI Aaron Golden) of 2M2228 conducted between 29-05-2015 and 31-05-2015 at C band (4--8 GHz) over two separate epochs on the aforementioned dates. The low declination of the source ($\sim-43\degr$) required observations using the hybrid BnA configuration. The first epoch spanned 2 hours from 11:31 UTC to 13:31 UTC, and the second spanned a similar time frame from 11:16 UTC to 13:16 UTC, with the target observation beginning at 11:47 UTC for the first epoch and at 11:33 UTC for the second. Three sources were observed, 3C48 as the flux density calibrator, J2257-3657 as the phase calibrator, and 2M2228. The on-target time for each epoch was $\sim96$ minutes, yielding a total time of $\sim192$ minutes.
+The data from the observations were processed using the \texttt{WIDAR} correlator and recorded at 2 seconds of integration and 64 channels over 32 spectral windows (spws).
+
+
+
+\subsection{Calibration and Imaging}
+\label{section:cal_imaging}
+We have processed the data using the VLA pipeline 6.6.1 \footnote{\url{https://science.nrao.edu/facilities/vla/data-processing/pipeline}} which is based on the Common Astronomy Software Applications \citep[CASA;][]{CASA2022}. The pipeline provides a series of automated recipes that flag, calibrate and image the data. Firstly, the data are exported from the VLA's standard archival format, a Science Data Model-Binary Data Format (SDM-SDF) file, to a measurement set. The measurement set is then Hanning smoothed to reduce Gibbs ringing, flagged, and then flux density scaled using a standard flux calibrator (3C48 for these data). Various calibration steps are then performed, including correcting for the gain curves, opacities, antenna position errors, requantisation biases, switched and system power corrections and finally delay and bandpass calibrations. Calibration tables generated during each of the steps are applied to the data. Additional flagging is performed, and science-ready calibrated visibilities are obtained. 
+
+
+
+To diagnose the quality of the calibration, we produce un-deconvolved images for each individual observing epoch of both datasets using the CASA task \texttt{tclean}.  We employ the multi-term multi-frequency \citep[MTMFS; ][]{Rau2011} deconvolver to account for the large observing bandwidth (4 GHz). The images are Briggs weighted with a robust parameter of 0.5  \citep{Briggs1995}. The theoretical Stokes I thermal noise for 2M2228 in a dual polarisation Briggs weighted image at the robust parameter for each observation epoch is $\sim2.3\ \mu\text{Jy~beam}^{-1}$. Finally, we perform deep deconvolution for both Stokes parameters using \texttt{tclean} to suppress the sidelobes. We use the \texttt{auto-multithresh} algorithm \citep[][]{Kepley2020}, which is implemented in CASA, to perform automatic masking of emission during CLEAN \citep[][]{Hogbom1974,Clark1980}. We note that the Stokes V images are expected to be largely free of sidelobes as background radio sources, which are responsible for the sidelobes in the Stokes I, have low circular polarisation levels at $<1$\% \citep[e.g.][]{Macquart2003}. 
+
+
+
+\subsection{Astrometry}
+
+
+The pointing centre of the array during the observations did not account for the proper motion of 2M2228. We have used the All Wide-field Infrared Survey Explorer (AllWISE) catalogue \citep{Cutri2014}, a reprocessing of WISE \citep[][]{Wright2010} and identified the source at coordinates 22h28m29.015256s and $-$43d10m29.83116s in Right Ascension (RA) and Declination (Dec) respectively at epoch 2010-07-23 (MJD 55400.0). The corresponding proper motions for the source are $102.3\pm5.8\ \text{mas yr}^{-1}$ and $-324.4\pm5.1\ \text{mas yr}^{-1}$ in RA and Dec \citep[see][]{Faherty2012}. 
+
+
+
+
+\subsection{Radio Light Curves}
+
+\label{section:variability}
+
+To produce radio light curves, we employ \texttt{WSClean} \citep[][]{WSClean2014} to make a sky model by masking the target and deconvolving all other sources within the primary beam of the array. We then use the CASA task \texttt{ft} to add the modelled sources to the \texttt{modeldatacolumn} of the measurement set. The model is then subtracted from the visibilities using the task \texttt{uvsub} and the data phase shifted using the task \texttt{phaseshift} to the proper motion-corrected position of the target. We then access the visibilities stored in a measurement set using the \texttt{table} and \texttt{ms} tools available from the CASA toolkit \texttt{casatools}. Using these tools, we extract and average the real parts of the visibilities over all baselines, channels and spectral windows for the parallel-hand  correlations, \texttt{RR} and \texttt{LL}. We then bin the visibilities at a cadence of two minutes. Next, we compute the Stokes I and V as the sum and difference of \texttt{RR} and \texttt{LL}, respectively.  We note that flux scaling calibrators have associated errors due to difficulties in determining the true flux density. For C-band observations using 3C48 (0137+3309) for flux scaling, the error associated with the absolute flux density is $\sim10$\% \footnote{\url{https://www.vla.nrao.edu/astro/calib/vlacal/cal_mon/last/0137+3309.html}}. To estimate the $1\sigma$ uncertainties, we add the scaling error in quadrature with the thermal noise of $\sim16.7\ \mu\text{Jy beam}^{-1}$ associated with or binning cadence (2 minutes). We have produced dynamic spectra by binning the visibilities of the phase centered, background subtracted source at a cadence equal to the integration time. The light curves and dynamic spectra are validated through comparison with results obtained using \texttt{DSTOOLS} \footnote{\url{https://github.com/askap-vast/dstools/tree/1e227ea26d1f6aed00afe56447ccbcdc61eae37a}}, a radio data processing tool that extracts and plots light curves and dynamic spectra from radio interferometer visibilities.
+
+
+
+
+\section{Results and Discussion}
+
+\subsection{Image Detection}
+
+2M2228 is detected in both observing epochs. In the first epoch the detection is at a peak flux density of $67.3\pm4.9\  \mu\text{Jy beam}^{-1}$ and  $14.4\pm3.0\ \mu\text{Jy beam}^{-1}$ in the Stokes I and V respectively relative to a noise level of $\sim3.1\ \mu\text{Jy beam}^{-1}$ in the Stokes I and $3.3\ \mu\text{Jy beam}^{-1}$ in the Stokes V. The flux densities are extracted from the images by fitting a Gaussian profile using the CASA tool \texttt{imfit}. The emission peak is found at coordinates 22h28m29.06898s -43d10m30.81460s. In the second epoch the detection is at a peak flux density of $107.2\pm5.2\ \mu\text{Jy beam}^{-1}$ and $-20.7\pm2.6\ \mu\text{Jy beam}^{-1}$ in the Stokes I and V respectively relative to a noise level of $\sim3.9\ \mu\text{Jy beam}^{-1}$ in the Stokes I and $3.5\ \mu\text{Jy beam}^{-1}$ in the Stokes V. Following the same approach as in epoch one, \texttt{imfit} is used and the emission peak is found at coordinates 
+22h28m29.08313s -43d10m31.18848s. Close examination of the peak positions of the emission shows a positional shift of $\sim405$ mas between the two observing epochs which is within the synthesised beam of $0.7$\arcsec . From the Stokes V measurements, the flux density changes sign from positive to negative between the two epochs, appearing to indicate a change in the helicity of the magnetic field, as positive values are associated with right-handedness of the polarisation and negative values with left-handedness. The corresponding synthesised images reporting the detections are presented in Figure~\ref{fig:sources_2M228}. 
+
+
+
+
+\begin{figure*}
+  \centering
+    \setlength{\tabcolsep}{-11pt} 
+    \renewcommand{\arraystretch}{0} 
+  \begin{tabular}{cccc}
+      \includegraphics[width=0.6\columnwidth]{figures/2MJ2228_phaseshifted_image_stokes_I_image.pdf}
+      &
+      \includegraphics[width=0.6\columnwidth]{figures/2MJ2228_phaseshifted_image_stokes_V_image.pdf}
+      &
+      \includegraphics[width=0.6 \columnwidth]{figures/2M2228_obs57173_phaseshifted_image_stokes_I_image.pdf}  
+      
+      &
+      \includegraphics[width=0.6\columnwidth]{figures/2M2228_obs57173_phaseshifted_image_stokes_V_image.pdf} 
+      \vspace{0.10cm}
+      \\
+      (a) & (b) & (c) & (d) 
+      \vspace{0.10cm}
+      % \\
+    \end{tabular}
+    %%% Stokes I are at $5 sigma$
+    \caption{ Stokes I and V images of 2M2228 for the observations conducted over two epochs. Panels (a) and (b) correspond to observations of the first epoch, and panels (c) and (d) to epoch two observations. (a) The source is detected in the Stokes I at a peak flux density $67.3\pm4.9\ \mu\text{Jy beam}^{-1}$. The $1\sigma$ r.m.s. noise in the image is $3.1\ \mu\text{Jy\,beam}^{-1}$ resulting in a signal to noise ratio (SNR) $\sim22$. (b) The corresponding Stokes V image is detected at a peak flux density $14.4\pm3.0\ \mu\text{Jy\,beam}^{-1}$ at a $1\sigma$ r.m.s noise of $3.3\ \mu\text{Jy\,beam}^{-1}$ giving a SNR $\sim4$. (c) Stokes I image for the second observing epoch. The detection is at a peak flux density $107.2\pm5.2\ \mu\text{Jy\,beam}^{-1}$ at a $1\sigma$ r.m.s noise of $3.9\ \mu\text{Jy\,beam}^{-1}$ giving a SNR $\sim27$. (d) The corresponding Stokes V image for the observation.  The detection is at a peak flux density $-20.7\ \mu\text{Jy\,beam}^{-1}$ at a $1\sigma$ r.m.s noise of $3.5\ \mu\text{Jy\,beam}^{-1}$ giving a SNR $\sim6$. The peak flux is negative, indicating the left-hand circular polarisation is dominant. The contours are drawn at $5\sigma\times(-4,-2\sqrt{2},-2,-\sqrt{2},-1,1)$. In all the images, positive contours are represented by the solid line and negative contours by the broken line. The  white ellipse with a black outline to the bottom left of the image represents the synthesised beam. All the positions are with respect to the detected positions at the first epoch.}
+ \label{fig:sources_2M228}
+\end{figure*}
+
+
+
+
+
+\subsection{Temporal Variability}
+
+The light curves for 2M2228 presented in Figure~\ref{fig:variability} (a) and (b) for the Stokes I and V reveal the source is displaying temporal variability. The source brightens in the first epoch to a flux density of $\sim380.8\ \mu\text{Jy beam}^{-1}$ and $\sim196.3\ \mu\text{Jy beam}^{-1}$  at 12:15 UTC in the Stokes I and V respectively and $\sim290.7\ \mu\text{Jy beam}^{-1}$ and $\sim-166.2\ \mu\text{Jy beam}^{-1}$ at 13:02 UTC in the Stokes I and V respectively. 
+In the second epoch, the source brightens to a flux density of $\sim330.8\ \mu\text{Jy beam}^{-1}$  and $\sim-291.1\ \mu\text{Jy beam}^{-1}$ at 12:04, $\sim273.6\ \mu\text{Jy beam}^{-1}$ and $\sim-315.2\ \mu\text{Jy beam}^{-1}$ at 12:51 and  $\sim316.1 \mu\text{Jy beam}^{-1}$and $\sim-266.1\mu\text{Jy beam}^{-1}$  at 13:02  in the Stokes I and V respectively.
+For these bursts we  estimate fractional circular polarisation fraction $f_\text{c}=51.5\pm5.0\%$ at 12:15 UTC and $57.2\pm7.0\%$ 13:02 UTC in the first epoch. Similarly, the bursts in epoch two exhibit $f_\text{c}=88.0\pm7.0\%$ at 12:04 UTC, $f_\text{c}>100\%$ at 12:51 UTC indicating the measurement is unreliable and $f_\text{c}=84.2\pm7.5\%$ at 13:02 UTC. 
+All timestamps have been rounded to the nearest minute. A summary of the timing, peak flux densities and their associated errors and fractional polarisation fractions of these bursts are presented in Table~\ref{tab:feature_summary}. Additionally, we present the fractional polarisation fractions in Figure~\ref{fig:variability} corresponding to each binned cadence for epochs one and two. Unfortunately, none of the bursts are captured in the dynamic spectra; consequently, the corresponding spectra are not presented. 
+
+
+
+We observe that in the bursts occur at an interval of $\sim47$ minutes in the first epoch and  $\sim58$ minutes in the second. 
+Considering 2M2228 has a half period $42.9\pm4.8$ \citep[][]{Clarke2008}, our analysis indicates the burst in the first epoch align within a half period timescale while the burst observed in the second epoch does not. We caution that the reported radio periodicities are tentative and precise periods can only be reliably determined through longer observations.  
+
+
+
+
+\begin{table}
+    \newcolumntype{C}[1]{>{\centering\arraybackslash}p{#1}}
+    \renewcommand{\arraystretch}{1.2}
+    \centering
+    \begin{tabularx}{\columnwidth}{C{0.7cm}| C{0.7cm} C{0.7cm} C{2.1cm} C{0.7cm} C{0.8cm}}
+    
+    \hline
+    Epoch & Burst & Stokes & \makecell{Peak Flux Density \\ $(\mu\text{Jy beam}^{-1})$} & Time (UTC) & $f_\text{c} (\%)$ \\
+    \hline
+    1 & \multirow{2}{*}{1} & I & 380.8$\pm18.3$& 12:15 &  \multirow{2}{*}{\centering $51.5\pm5.0$} \\
+    &   & V & 196.3$\pm16.7$ & 12:15 & \\  \cline{2-6} 
+    
+    &  \multirow{2}{*}{2}  & I & 290.7$\pm20.0$ & 13:02 &  \multirow{2}{*}{\centering $57.2\pm7.0$}  \\
+    &  & V & -166.2$\pm16.7$ & 13:02 & \\
+    \hline
+    \multirow{2}{*}{2} & \multirow{2}{*}{1} & I & 330.8$\pm18.3$ & 12:04 &  \multirow{2}{*}{\centering $88.0\pm7.0$}\\
+    &  & V & -291.1$\pm16.7$ & 12:04 & \\ \cline{2-6} 
+    
+    & \multirow{2}{*}{2} & I & 316.1$\pm20.0$ & 13:02 &  \multirow{2}{*}{\centering $84.2\pm7.5$}\\
+    &  & V & -266.1$\pm16.7$ & 13:02 & \\
+    \hline
+	\end{tabularx}
+    \caption{A summary of the bursts observed from the light curve.}
+    \label{tab:feature_summary}
+\end{table}
+
+
+\begin{figure*}
+    \centering
+    \subfloat[ ]{%
+        \includegraphics[width=0.49\textwidth]{figures/2MJ2228_phaseshifted_stokes_fracpol_binned_120.0_plot.pdf}%
+        \label{fig:sub1}
+    }
+    \hfill
+    \subfloat[]{%
+        \includegraphics[width=0.49\textwidth]{figures/2M2228_obs57173_phaseshifted_stokes_fracpol_binned_120.0_plot.pdf}%
+        \label{fig:sub2}
+    }
+    \caption{
+    (a) Upper panel: Stokes I light curves for epoch one observations at 4-8 GHz with the data binned a cadence of 2 min. Center panel: the corresponding Stokes V light curve. The mean values for the Stokes I and V are $78.2\ \mu\text{Jy beam}^{-1}$ and $11.0\ \mu\text{Jy beam}^{-1}$. Lower panel: the fractional polarisation obtained as the ratio of the absolute Stokes V value to the Stokes I for each binned point.
+    (b) Stokes I and V light curves for epoch two observations displayed using a similar panel layout to epoch one observations. The broken line represents the mean flux density. The mean values for the Stokes I and V are $122.1\ \mu\text{Jy beam}^{-1}$ and $-27.3\ \mu\text{Jy beam}^{-1}$. Lower panel: the fractional polarisation fraction obtained as the ratio of the absolute Stokes V value to the Stokes I for each binned point. The light curves were filtered to remove unphysical values, specifically cases with fractional polarization greater than 1 and data points with excessively large errors.
+ }
+    \label{fig:variability}
+\end{figure*}
+
+% \textbf{Change the lightcurve labelling to micro Jy instead of micro Jy/beam as they are constrictred form visibilities}
+
+\subsection{Emission Mechanism}
+
+To characterise the radio emission, we first evaluate the brightness temperatures $T_\text{B}$ using equation~\ref{eqn:brightness_temp}
+%
+\begin{equation}
+    T_\text{B} \simeq \frac{S_\nu}{1\ \mu\text{Jy}}\times\ \left(\frac{\nu}{\text{1 GHz}}\right)^{-2} \times \left(\frac{d}{\text{1 pc}}\right)^2\ \times \left(\frac{L}{\text{1 cm}}\right)^{-2} \times10^{26}\ \ \  \text{K} \ ,
+    \label{eqn:brightness_temp}
+\end{equation}
+%
+where $S_\nu$ is the flux density in $\mu\text{Jy beam}^{-1}$, $\nu$ is the central frequency of the observation (6 GHz), $d$ is the distance to the source in parsec, and $L$ is the size of the emitting region in cm. Assuming the source size is on the order of the radius of 2M2228, that is, $L\sim0.94\ R_\text{J}$ where $R_\text{J}\sim7\times10^9$ cm is the Jovian radius, we determine $T_\text{B}\sim (4.9-7.8)\ \times10^{8}$ K for peak flux densities measured from the images made using time and frequency averaged Stokes I visibilities in epoch one and two, respectively. 
+We infer spectral luminosities $L_\nu = 4\pi d^2S_\nu$ of $L_\nu\sim(9.1-14.5)\times10^{12}\ \text{erg s}^{-1}\text{Hz}^{-1}$ and radio luminosities $L_\text{R} = \int L_\nu\  \rm{d}\nu\sim(3.65-5.81)\times10^{22}\ \text{erg s}^{-1}$ for the first and second epochs, respectively over an observing bandwidth  d$\nu$.
+
+
+ 
+To estimate the spectral indices, we divide the 4 GHz bandwidth into two equal sub-bands, each 2 GHz in size we then make images for each sub-band  and measure the integrated flux. We  estimate the spectral index $(S\propto\nu^{\alpha})$ $\alpha$ at $-2.56\pm0.61$ and $-1.65\pm0.40$ for the first and second epoch respectively. The steep spectral indices for the first epoch signify a cut-off frequency where the flux density rapidly diminishes and the source becomes undetectable.
+
+
+
+
+\subsubsection{Electron Cyclotron Maser Emission}
+
+Besides plasma emission, the electron cyclotron maser emission (ECME) has been shown to be the dominant mechanism for the generation of coherent radio emission in low mass stars and brown dwarfs \citep[e.g.][]{Hallinan2007,Hallinan2008} at cm wavelengths. ECME phenomenologically manifests as coherent, highly polarised bursts originating from spatially localised regions occurring at a local cyclotron frequency $\nu_\text{c} = 2.8 \times 10^{6}B$ Hz, where $B$ is the magnetic field strength in gauss, and exhibits a cut-off in frequency. Accordingly, we attribute the highly polarised emission which reaches $f_\text{c}\sim100\%$ to ECME and constrain
+the magnetic field strength of 2M2228 to $B\gtrsim 1.4$ kG. To place a limit on the minimum size of an emitting region  $L_\text{J}$ (in Jupiter radii, $R_\text{J}$) capable of supporting the estimated magnetic field strength while exhibiting brightness temperatures $T_\text{B}$ consistent with a coherent emission mechanism, we recast equation~\ref{eqn:brightness_temp} as follows 
+%
+\begin{equation}
+    L_\text{J} = \frac{1}{700} \times \left(\frac{S_\nu}{1\ \mu\text{Jy}}\right)^{1/2} \times \left(\frac{\nu}{\text{1 GHz}}\right)^{-1/2}\times\frac{d}{1\ \text{pc}} \ \ \ R_\text{J}\ \ .
+    \label{eqn:source_size}
+\end{equation}
+%
+Assuming a peak flux density of $355.1\ \mu\text{Jy beam}^{-1}$ and $T_\text{B}\gtrsim10^{12}$ K, we constrain the source size to $<0.12\ R_\text{J}$.  We note that the source size estimated using equation~\ref{eqn:source_size} yields brightness temperatures slightly less than the input of $10^{12}$ K with the discrepancy arising from the approximations. Nonetheless, the margin of error is acceptable and adequate for the level of accuracy required.
+
+
+\subsection{Physical Interpretation}
+
+We interpret the coherent emission driven by ECME as auroral emission beamed over a hollow cone from a region of size $<0.12R_\text{J}$ at high magnetic latitudes. Detected radio bursts can constrain the geometry and the rotation period of brown dwarfs. However, as outlined earlier, the period of 2M2228 is well characterised using mid IR atmospheric measurements \citep[e.g.][]{Clarke2008,Buenzli2012}. Periods measured from ECME which is driven by dynamos in the interiors of UCDs are slightly different from those measured in the mid IR and have been used to constrain atmospheric wind speeds \citep[][]{Allers2020}. Although our observing times are brief, we can draw limited inferences on the physical characteristics of the system.
+
+The emission  occurs at intervals of $\sim47$ and $\sim58$ minutes in the first and second epochs. The occurrence interval in the first epoch  is within the error margin of $42.9\pm4.8$ corresponding to half the measured period from the mid infrared \citep[][]{Clarke2008}. On the assumption that 2M2228 has large scale magnetic fields organised in a stable dipolar configuration as commonly observed from Jupiter \citep[][]{Hill1979} and assigning the right circular polarisation (RCP) to one magnetic pole and the left circular polarisation (LCP) to the opposite pole, we can infer a tentative geometry of the system. Provided that 2M2228 is an oblique rotator \citep[e.g.][]{Guirado2025} with a magnetic axis tilted relative to the rotation axis by an angle $\beta$, we argue for an observer at an inclination angle $i$ nearly perpendicular to the rotation axis.
+Assuming that ECME is beamed over a hollow cone at a beam opening angles similar to those of the Jovian system 
+$\alpha\sim70\degr -85\degr$ \citep[see][]{Melrose1982} and the emission confined to the cone thickness $\Delta\alpha$ determined by the size of the emitting oval. As such the emission is only visible over a narrow range of angles $\alpha\pm \Delta\alpha$. For an emission size $<0.12R_\text{J}$, we establish $\Delta\alpha<7.3\degr$. We note that the cone thickness $\Delta\alpha$ is consistent with the findings derived from detailed geometric modelling for the T6/6.5 brown dwarf WISEP J112254.73+255021.5 by \citet[][]{Guirado2025} at $\Delta\alpha\sim8.4\degr$ and the T8 brown dwarf WISE J062309.94-045624.6 by \citet[][]{Kavanagh2024} at $\Delta\alpha\sim4\degr$. Under the assumption that the observed emission is associated with both poles, it necessarily follows that 2M2228 must be viewed at an inclination angle $i$ nearly perpendicular to the rotation axis. The angle of obliquity $\beta$ can then be estimated by imposing the following condition $|i-\beta|\leq\alpha+\Delta\alpha$ for one pole and $|i-(180-\beta)\leq\alpha+\Delta\alpha$ for the other. Consequently, $\beta$ must be in the order of a few degrees for $i$ to be nearly perpendicular. We however emphasise that the true geometry of 2M2228 can only be uncovered through detailed modelling using longer observations \citep[e.g.][]{Kavanagh2024,Guirado2025}. 
+
+
+
+
+
+
+\section{Summary and Future Work}
+
+We have analysed archival VLA C band (4-8 GHz) band observations of the rapidly rotating T6/T6.5. brown dwarf 2MASS J22282889-4310262 (2M2228) over two observing epochs ($2\times96$ minutes) and made a detection in the Stokes I at a peak flux density of $\sim67.3\ \mu\text{Jy beam}^{-1}$ and $\sim107.2\ \mu\text{Jy beam}^{-1}$ and in the Stokes V at a peak flux density of $\sim14.4\ \mu\text{Jy beam}^{-1}$ and $-20.7\ \mu\text{Jy beam}^{-1}$ in the first and second epochs, respectively. This detection makes 2M2228 the eighth and notably the most rapidly rotating T dwarf detected at radio wavelengths. We have produced Stokes I and V light curves and detected bursts occuring at intervals of $\sim47$ and $\sim58$ minutes. 
+We have measured brightness temperatures $\sim10^{8}$ K assuming an emission size on the order of the radius of 2M2228 at $\sim0.94R_\text{J}$ where $R_\text{J}$ is the Jovian radius. We note this estimation neglects the source's morphology and represents a fundamental lower limit. Using the estimated brightness temperatures, we have inferred spectral luminosities of $L_\nu\sim10^{12}\ \text{erg s}^{-1}\text{Hz}^{-1}$, radio luminosities of $L_\text{R}\sim10^{22} \text{erg s}^{-1}$. The large fractional polarisation ratios $f_\text{c}>50\%$ measured from the bursts suggest the emission is produced through the electron cyclotron maser emission (ECME). Using the lower limit of $10^{12}$ K for brightness temperatures from a coherent mechanism, we constrain the emission source size to $<0.12R_\text{J}$. Considering ECME is emitted over a hollow cone with large beam opening angles $\alpha\sim70\degr-85\degr$ \citep[see][]{Melrose1982} with the emission confined to the thickness of the cone $\Delta\alpha$ which we establish as $\leq8.4\degr$. Assuming a dipolar configuration of the magnetic field, we demonstrate 2M2228 must be viewed at an inclination angle almost perpendicular to the rotation angle indicating magnetic obliquity in the order of a few degrees. We caution that the inferred periodicity and geometry are provisional considering the brief observation durations. We propose longer observing times $>12$ hours ($\sim8$ full periods of 2M2228) using radio telescopes in the Southern hemisphere.
+
+
+\section*{Acknowledgements}
+
+This project has been made possible in part by a grant from the SETI Institute. This work made use of Astropy:3, a community-developed core Python package and an
+ecosystem of tools and resources for astronomy \citep[][]{astropy2013,astropy2018,astropy2022}. The National Radio Astronomy Observatory is a facility of the National Science Foundation
+operated under cooperative agreement by Associated Universities, Inc. This research has made use of the SIMBAD database, operated at CDS, Strasbourg, France. This research has made use of the VizieR catalogue access tool, CDS, Strasbourg, France. This publication makes use of data products from the Wide-field Infrared Survey Explorer, which is a joint project of the University of California, Los Angeles, and the Jet Propulsion Laboratory/California Institute of Technology, funded by the National Aeronautics and Space Administration.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{Data Availability}
+
+Data underlying this article are publicly available in the NRAO Data Archive at \url{https://data.nrao.edu/portal} and can be accessed with project code 15A-045.
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%% REFERENCES %%%%%%%%%%%%%%%%%%
+
+% The best way to enter references is to use BibTeX:
+
+\bibliographystyle{mnras}
+\bibliography{example} % if your bibtex file is called example.bib
+
+
+% Alternatively you could enter them by hand, like this:
+% This method is tedious and prone to error if you have lots of references
+%\begin{thebibliography}{99}
+%\bibitem[\protect\citeauthoryear{Author}{2012}]{Author2012}
+%Author A.~N., 2013, Journal of Improbable Astronomy, 1, 1
+%\bibitem[\protect\citeauthoryear{Others}{2013}]{Others2013}
+%Others S., 2012, Journal of Interesting Stuff, 17, 198
+%\end{thebibliography}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%% APPENDICES %%%%%%%%%%%%%%%%%%%%%
+
+\appendix
+
+\section{Some extra material}
+
+If you want to present additional material which would interrupt the flow of the main paper,
+it can be placed in an Appendix which appears after the list of references.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+% Don't change these lines
+\bsp	% typesetting comment
+\label{lastpage}
+\end{document}
+
+% End of mnras_template.tex
